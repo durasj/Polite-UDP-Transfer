@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Polite UDP Transfer</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+          href="../node_modules/material-components-web/dist/material-components-web.css">
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <div id="ui" class="mdc-typography">
+
+      <header class="mdc-toolbar mdc-toolbar--fixed">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+          <span class="mdc-toolbar__title">Polite UDP Transfer</span>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+          <svg 
+            v-show="loading"
+            class="spinner"
+            width="32px"
+            height="32px"
+            viewBox="0 0 66 66"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </section>
+      </header>
+
+      <div class="content mdc-toolbar-fixed-adjust">
+        <nav class="mdc-permanent-drawer">
+          <div class="mdc-list-group">
+            <nav class="mdc-list">
+              <a
+                class="mdc-list-item"
+                v-bind:class="{ 'mdc-permanent-drawer--selected': (mode == 'client') }"
+                v-on:click="mode = 'client'"
+                href="#"
+              >
+                <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">face</i>Client
+              </a>
+              <a
+                class="mdc-list-item"
+                v-bind:class="{ 'mdc-permanent-drawer--selected': (mode == 'server') }"
+                v-on:click="mode = 'server'"
+                href="#"
+              >
+                <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">storage</i>Server
+              </a>
+            </nav>
+          </div>
+        </nav>
+
+        <main class="main" v-show="mode == 'client'">
+          <h1 class="mdc-typography--display1">At your service</h1>
+          <p class="mdc-typography--body1">Kindly click on the button in the corner to get a list of available files.</p>
+
+          <div v-for="file in clientFiles" class="mdc-card">
+            <section class="mdc-card__primary">
+              <h1 class="mdc-card__title mdc-card__title--large">{{ file.name }}</h1>
+              <h2 class="mdc-card__subtitle">Status: {{ file.status || 'Unknown' }}</h2>
+              <h2 class="mdc-card__subtitle">Size: {{ hrFileSize(file.size) }}</h2>
+              <h2 class="mdc-card__subtitle">Checksum: {{ file.sum }}</h2>
+            </section>
+            <section class="mdc-card__actions">
+              <button class="mdc-button mdc-button--compact mdc-card__action">DOWNLOAD</button>
+            </section>
+          </div>
+
+          <button class="floating-fab mdc-fab" v-on:click="fetchFileList()">
+            <span class="mdc-fab__icon material-icons" aria-label="Fetch List">
+              cached
+            </span>
+          </button>
+        </main>
+
+        <main class="main" v-show="mode == 'server'">
+          <h1 class="mdc-typography--display1">What can we share, sir?</h1>
+          <p class="mdc-typography--body1">Kindly click on the button in the corner to add a file.</p>
+
+          <div v-for="file in serverFiles" class="mdc-card file-card">
+            <section class="mdc-card__primary">
+              <h1 class="mdc-card__title mdc-card__title--large">{{ file.name }}</h1>
+              <h2 class="mdc-card__subtitle">Path: {{ file.path }}</h2>
+              <h2 class="mdc-card__subtitle">Size: {{ hrFileSize(file.size) }}</h2>
+              <h2 class="mdc-card__subtitle">Checksum: {{ file.sum }}</h2>
+            </section>
+          </div>
+
+          <button class="floating-fab mdc-fab" v-on:click="pickForServer()">
+            <span class="mdc-fab__icon material-icons" aria-label="Add">
+              add
+            </span>
+          </button>
+        </main>
+
+      </div>
+
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

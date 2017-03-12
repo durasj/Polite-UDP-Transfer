@@ -1,0 +1,81 @@
+/* Ensure layout covers the entire screen. */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#ui {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+/* Place drawer and main next to each other. */
+.content {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.main {
+    padding: 0 16px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.file-card {
+    margin-bottom: 8px;
+}
+
+.floating-fab {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+@media(min-width: 1024px) {
+    .floating-fab {
+        bottom: 3rem;
+        right: 5rem;
+    }
+}
+
+.spinner {
+    animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+.path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite;
+    stroke: #ffffff;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+}

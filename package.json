@@ -1,0 +1,28 @@
+{
+  "name": "polite-udp-transfer",
+  "version": "0.1.0",
+  "description": "Polite UDP Transfer edu project",
+  "main": "main.js",
+  "repository": "https://github.com/durasj/Polite-UDP-Transfer",
+  "scripts": {
+    "copy": "cp ./src/index.html ./build/index.html && cp ./src/index.css ./build/index.css",
+    "build": "npm run copy && tsc",
+    "start": "npm run build && electron ."
+  },
+  "author": "Jakub Ďuraš<jakub@duras.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/electron": "^1.4.33",
+    "@types/node": "^7.0.8",
+    "devtron": "^1.4.0",
+    "electron": "^1.4.1",
+    "typescript": "^2.2.1"
+  },
+  "dependencies": {
+    "electron-debug": "^1.1.0",
+    "filesize": "^3.5.6",
+    "material-components-web": "^0.6.0",
+    "md5-file": "^3.1.1",
+    "vue": "^2.2.2"
+  }
+}
