@@ -18,8 +18,8 @@ Non-serious project to get my feet wet in UDP Datagrams and Electron. Not suitab
 * Detailed configuration support
 
 ## Downloads
-* Windows x64
-* Linux x64
+* [Windows x64](https://github.com/durasj/Polite-UDP-Transfer/releases/download/v0.1.0/Win32.x64.zip)
+* [Linux x64](https://github.com/durasj/Polite-UDP-Transfer/releases/download/v0.1.0/Linux.x64.zip)
 
 ## Configuration
 
