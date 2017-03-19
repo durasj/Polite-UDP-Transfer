@@ -1,6 +1,6 @@
 # "Polite" UDP File Sharing using Broadcast
 
-Non-serious project to get my feet wet in UDP Datagrams and Electron. Not suitable for use in the real world. Can overload the network with binary UDP packets if large files are transfered.
+Non-serious project to get my feet wet in UDP Datagrams and Electron. Not suitable for use in the real world. Can overload the network with binary UDP packets if large files are transferred.
 
 ![Screenshot](res/screen.jpg)
 
@@ -11,8 +11,8 @@ Non-serious project to get my feet wet in UDP Datagrams and Electron. Not suitab
 * Ask for data broadcasting
 * Broadcasting of file chunks
 * Transfer progress
-* Transfered file checksum verification
-* Transfered file opening
+* Transferred file checksum verification
+* Transferred file opening
 * Packet loss simulation
 * Lost packets resending
 * Detailed configuration support
@@ -61,9 +61,9 @@ cd Polite-UDP-Transfer
 npm install
 ```
 
-After file changes, run `npm start`. Project should be built and the app opened.
+After file changes, run `npm start`. The project should be built and the app opened.
 For 64-bit win32 and linux folder packaging, run `npm package`
-To create 64-bit win32 and linux installables, run `npm dist`
+To create 64-bit win32 and linux installable, run `npm dist`
 
 See [package.json](package.json) for more available commands
 
