@@ -30,6 +30,7 @@
       </header>
 
       <div class="content mdc-toolbar-fixed-adjust">
+        <!-- SIDEBAR -->
         <nav class="mdc-permanent-drawer">
           <div class="mdc-list-group">
             <nav class="mdc-list">
@@ -37,6 +38,7 @@
                 class="mdc-list-item"
                 v-bind:class="{ 'mdc-permanent-drawer--selected': (mode == 'client') }"
                 v-on:click="mode = 'client'"
+                v-if="clientEnabled"
                 href="#"
               >
                 <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">face</i>Client
@@ -45,6 +47,7 @@
                 class="mdc-list-item"
                 v-bind:class="{ 'mdc-permanent-drawer--selected': (mode == 'server') }"
                 v-on:click="mode = 'server'"
+                v-if="serverEnabled"
                 href="#"
               >
                 <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">storage</i>Server
@@ -52,20 +55,31 @@
             </nav>
           </div>
         </nav>
+        <!-- /SIDEBAR -->
 
+        <!-- CLIENT PART INTERFACE -->
         <main class="main" v-show="mode == 'client'">
           <h1 class="mdc-typography--display1">At your service</h1>
           <p class="mdc-typography--body1">Kindly click on the button in the corner to get a list of available files.</p>
 
-          <div v-for="file in clientFiles" class="mdc-card">
+          <div v-for="file in clientFiles" class="mdc-card file-card">
             <section class="mdc-card__primary">
               <h1 class="mdc-card__title mdc-card__title--large">{{ file.name }}</h1>
-              <h2 class="mdc-card__subtitle">Status: {{ file.status || 'Unknown' }}</h2>
+              <h2 class="mdc-card__subtitle">Status: {{ file.status || '-' }}</h2>
               <h2 class="mdc-card__subtitle">Size: {{ hrFileSize(file.size) }}</h2>
               <h2 class="mdc-card__subtitle">Checksum: {{ file.sum }}</h2>
             </section>
             <section class="mdc-card__actions">
-              <button class="mdc-button mdc-button--compact mdc-card__action">DOWNLOAD</button>
+              <button
+                class="mdc-button mdc-button--compact mdc-card__action"
+                v-if="!file.status"
+                v-on:click="askFile(file)"
+              >ASK</button>
+              <button
+                class="mdc-button mdc-button--compact mdc-card__action"
+                v-if="file.status && file.status.indexOf('Downloaded') === 0"
+                v-on:click="openFile(file)"
+              >OPEN</button>
             </section>
           </div>
 
@@ -75,7 +89,9 @@
             </span>
           </button>
         </main>
+        <!-- /CLIENT PART INTERFACE -->
 
+        <!-- SERVER PART INTERFACE -->
         <main class="main" v-show="mode == 'server'">
           <h1 class="mdc-typography--display1">What can we share, sir?</h1>
           <p class="mdc-typography--body1">Kindly click on the button in the corner to add a file.</p>
@@ -95,6 +111,7 @@
             </span>
           </button>
         </main>
+        <!-- /SERVER PART INTERFACE -->
 
       </div>
 

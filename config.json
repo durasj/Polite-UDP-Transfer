@@ -1,0 +1,7 @@
+{
+    "CHUNK_SIZE": 1000,
+    "SERVER_IP": "localhost",
+    "BROADCAST_ADDRESS": "192.168.1.255",
+    "META_PORT": 10000,
+    "DATA_PORT": 10001
+}

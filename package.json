@@ -1,13 +1,18 @@
 {
   "name": "polite-udp-transfer",
+  "productName": "Polite UDP Transfer",
   "version": "0.1.0",
   "description": "Polite UDP Transfer edu project",
   "main": "main.js",
-  "repository": "https://github.com/durasj/Polite-UDP-Transfer",
+  "repository": "electron-packager <sourcedir> <appname> --platform=<platform> --arch=<arch> [optional flags...]",
   "scripts": {
     "copy": "cp ./src/index.html ./build/index.html && cp ./src/index.css ./build/index.css",
     "build": "npm run copy && tsc",
-    "start": "npm run build && electron ."
+    "start": "npm run build && electron .",
+    "pack:win": "build -w --x64 --dir",
+    "pack:linux": "build -l --x64 --dir",
+    "package": "npm run pack:win && npm run pack:linux",
+    "dist": "build -wl --x64"
   },
   "author": "Jakub Ďuraš<jakub@duras.me>",
   "license": "MIT",
@@ -16,13 +21,33 @@
     "@types/node": "^7.0.8",
     "devtron": "^1.4.0",
     "electron": "^1.4.1",
+    "electron-builder": "^15.6.2",
+    "tslint": "^4.5.1",
     "typescript": "^2.2.1"
   },
   "dependencies": {
     "electron-debug": "^1.1.0",
     "filesize": "^3.5.6",
+    "left-pad": "^1.1.3",
     "material-components-web": "^0.6.0",
     "md5-file": "^3.1.1",
+    "random-access-file": "^1.5.0",
     "vue": "^2.2.2"
+  },
+  "build": {
+    "appId": "pudpt.duras.me",
+    "files": [
+      "**/*",
+      "!.git${/*}",
+      "!.vscode${/*}",
+      "!downloads${/*}",
+      "!src${/*}"
+    ],
+    "asarUnpack": [
+      "config.json"
+    ],
+    "directories": {
+      "buildResources": "res"
+    }
   }
 }

@@ -1,5 +1,7 @@
+const Config = require('./build/Config').default
+Config.loadCustom()
 const electron = require('electron')
-require('electron-debug')()
+require('electron-debug')({enabled: Config.ENABLE_DEBUG})
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -14,7 +16,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1024, height: 600, icon: __dirname + '/icon.png'})
+  mainWindow = new BrowserWindow({width: 1024, height: 600, icon: __dirname + '/res/icon.png'})
   mainWindow.setMenu(null)
 
   // and load the index.html of the app.
@@ -54,6 +56,3 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

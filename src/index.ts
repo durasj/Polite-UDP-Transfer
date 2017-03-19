@@ -1,3 +1,7 @@
-require('material-components-web/dist/material-components-web');
+require('material-components-web/dist/material-components-web')
 
-require('./ui');
+// Load
+require('./Config').default.loadCustom()
+
+// UI which will optionally load Client and Server
+require('./ui')
