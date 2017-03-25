@@ -2,7 +2,7 @@
 
 Non-serious project to get my feet wet in UDP Datagrams and Electron. Not suitable for use in the real world. Can overload the network with binary UDP packets if large files are transferred.
 
-![Screenshot](res/screen.jpg)
+![Demo](res/demo.gif)
 
 ## Features
 * Can act as client and/or server in the one running app
