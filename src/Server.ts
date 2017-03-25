@@ -182,16 +182,20 @@ export default class Server {
             readable: true,
             writable: false
         })
+        const lastChunkSize = file.size - ((file.parts - 1) * Config.CHUNK_SIZE)
 
         missingParts.forEach((index) => {
+            const lastChunk = (file.parts - 1) === index
+
             raf.read(
                 index * Config.CHUNK_SIZE,
-                Config.CHUNK_SIZE,
+                lastChunk ? lastChunkSize : Config.CHUNK_SIZE,
                 (error: string, data: Buffer) => {
                     if (error) {
                         Debug.log('RAF read error', error)
                         return
                     }
+
                     const buffer = Buffer.alloc(fileId.length + 4 + data.byteLength)
                     buffer.write(fileId, 0, fileId.length)
                     buffer.writeUInt32BE(index, fileId.length)

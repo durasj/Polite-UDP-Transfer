@@ -80,6 +80,8 @@ export default class Client {
         // We don't know such file
         const file = this.files.find((f) => f.id === message.fileId)
         if (file === undefined) return
+        // Don't accept any new data for already finished file
+        if (file.hasFinished()) return
 
         file.processData(message)
     }
