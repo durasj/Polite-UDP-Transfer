@@ -18,7 +18,7 @@ Non-serious project to get my feet wet in UDP Datagrams and Electron. Not suitab
 * Detailed configuration support
 
 ## Downloads
-* [Windows x64](https://github.com/durasj/Polite-UDP-Transfer/releases/download/v0.1.2/PUDPT-0.1.2-win32.x64.zip)
+* [Windows x64](https://github.com/durasj/Polite-UDP-Transfer/releases/download/v0.1.2/PUDPT-0.1.2-win.x64.zip)
 * [Linux x64](https://github.com/durasj/Polite-UDP-Transfer/releases/download/v0.1.2/PUDPT-0.1.2-linux.x64.zip)
 
 ## Configuration
