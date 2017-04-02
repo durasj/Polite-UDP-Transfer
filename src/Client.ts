@@ -136,24 +136,52 @@ export default class Client {
      * @param file File which has missing parts
      */
     public requestParts(file: ClientFile) {
+        const missingPartsLength = file.missingParts.size
+
+        let promises: Promise<any>[] = []
+
+        let requestedParts = new Set<number>()
+        let requestedPartsLength = 0
+        let processedPartsLength = 0
+        file.missingParts.forEach(partIndex => {
+            requestedParts.add(partIndex)
+            requestedPartsLength++
+            processedPartsLength++
+
+            // Max 250 per request to fit into packet
+            if (
+                requestedPartsLength === 250
+                ||
+                processedPartsLength === missingPartsLength
+            ) {
+                promises.push(
+                    this.requestPartsMessage(file.id, requestedParts)
+                )
+                requestedParts.clear()
+                requestedPartsLength = 0
+            }
+        })
+
+        return Promise.all(promises)
+    }
+
+    private requestPartsMessage(fileId: string, parts: Set<number>) {
         return new Promise((resolve, reject) => {
             // Polite request word + space
-            const stringPart = 'PARTS ' + file.id + ' ' + Config.POLITE_REQUEST_WORD + ' '
+            const stringPart = 'PARTS ' + fileId + ' ' + Config.POLITE_REQUEST_WORD + ' '
             const buffer = Buffer.alloc(
                 stringPart.length +
-                (4 * file.missingParts.size)
+                (parts.size * 4)
             )
             buffer.write(stringPart, 0, stringPart.length)
             let i = 0
-            file.missingParts.forEach(partIndex => {
+            parts.forEach(partIndex => {
                 let offset = stringPart.length + (i * 4)
                 buffer.writeUInt32BE(partIndex, offset)
                 i++
             })
-            this.sendMessage(buffer).then(() => {
+            this.sendMessage(buffer, false).then(() => {
                 resolve()
-            }, (err) => {
-                reject(err)
             })
         })
     }
@@ -161,20 +189,23 @@ export default class Client {
     /**
      * Sends message to server
      * @param message Message to send
+     * @param requireResponse Should we process response
      */
-    private sendMessage(message: Buffer) {
+    private sendMessage(message: Buffer, requireResponse: boolean = true) {
         return new Promise((resolve, reject) => {
-            this.txSocket.once('message', (message, remote) => {
-                const response = message.toString().trim()
-                Debug.log('Client got response: "' + response + '"')
+            if (requireResponse) {
+                this.txSocket.once('message', (message, remote) => {
+                    const response = message.toString().trim()
+                    Debug.log('Client got response: "' + response + '"')
 
-                if (response.indexOf(Config.POLITE_ERROR_WORD) === 0) {
-                    reject(response)
-                    return
-                }
+                    if (response.indexOf(Config.POLITE_ERROR_WORD) === 0) {
+                        reject(response)
+                        return
+                    }
 
-                resolve(response)
-            })
+                    resolve(response)
+                })
+            }
 
             this.txSocket.send(
                 message,
@@ -189,6 +220,8 @@ export default class Client {
                     }
                 }
             )
+
+            if (!requireResponse) resolve()
         })
     }
 
