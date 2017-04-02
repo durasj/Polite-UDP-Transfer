@@ -8,7 +8,7 @@ import { File } from './File'
 import { ClientFile } from './ClientFile'
 import { DataMessage } from './DataMessage'
 
-type statusCallback = (fileId: string, status: string) => void;
+type statusCallback = (fileId: string, status: string) => void
 
 export default class Client {
     /**

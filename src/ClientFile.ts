@@ -210,7 +210,7 @@ export class ClientFile implements File {
 
     /**
      * Check transfer
-     * 
+     *
      * Shares progress, optionally requests lost packets
      * and plans next transfer check if required
      */
@@ -238,7 +238,7 @@ export class ClientFile implements File {
 
     /**
      * Checksum verification and .tmp renaming
-     * 
+     *
      * Compares downloaded file checksum to the received one
      * and renames file from the *.tmp to original name *
      */
