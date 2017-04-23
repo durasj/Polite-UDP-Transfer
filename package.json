@@ -1,10 +1,10 @@
 {
   "name": "polite-udp-transfer",
   "productName": "Polite UDP Transfer",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Polite UDP Transfer edu project",
   "main": "main.js",
-  "repository": "electron-packager <sourcedir> <appname> --platform=<platform> --arch=<arch> [optional flags...]",
+  "repository": "https://github.com/durasj/Polite-UDP-Transfer",
   "scripts": {
     "copy": "cp ./src/index.html ./build/index.html && cp ./src/index.css ./build/index.css",
     "build": "npm run copy && tsc",
